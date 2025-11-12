@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Search Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Basic Search Bot (Free)</h1>
+        <form method="POST" id="searchForm">
+            <input type="text" name="query" placeholder="Enter search query" value="{{ query }}" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if results %}
+            <div class="download">
+                <form method="POST" action="/download">
+                    <input type="hidden" name="query" value="{{ query }}">
+                    <select name="format">
+                        <option value="csv">CSV</option>
+                        <option value="excel">Excel</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                    <button type="submit">Download</button>
+                </form>
+            </div>
+
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Link</th>
+                        <th>Snippet</th>
+                        <th>Emails</th>
+                        <th>Phones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr>
+                        <td>{{ r.title }}</td>
+                        <td><a href="{{ r.link }}" target="_blank">{{ r.link }}</a></td>
+                        <td>{{ r.snippet }}</td>
+                        <td>{{ r.emails|join(", ") }}</td>
+                        <td>{{ r.phones|join(", ") }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>

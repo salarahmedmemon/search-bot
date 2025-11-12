@@ -1,0 +1,11 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+.container { max-width: 1000px; margin: auto; }
+input[type="text"] { width: 60%; padding: 8px; }
+button, select { padding: 6px 12px; margin-left: 5px; }
+.download { margin-top: 15px; margin-bottom: 15px; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { padding: 8px; border: 1px solid #ddd; }
+th { background-color: #f2f2f2; }
+tr:nth-child(even) { background-color: #fafafa; }
+a { color: blue; text-decoration: none; }
+a:hover { text-decoration: underline; }
