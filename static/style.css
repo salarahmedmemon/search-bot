@@ -9,7 +9,7 @@ body {
 
 /* ---------- CONTAINER ---------- */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: auto;
     background: rgba(255, 255, 255, 0.75);
     padding: 40px 50px;
@@ -37,7 +37,7 @@ h1 {
 }
 
 /* ---------- INPUT ---------- */
-input[type="text"] {
+input[type="text"], input[type="number"] {
     width: 70%;
     padding: 14px 16px;
     border-radius: 12px;
@@ -48,7 +48,7 @@ input[type="text"] {
     transition: 0.25s ease;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, input[type="number"]:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 8px rgba(59,130,246,0.4);
     outline: none;
@@ -74,6 +74,10 @@ button:hover {
     box-shadow: 0 6px 18px rgba(59,130,246,0.45);
 }
 
+button:active {
+    transform: translateY(0);
+}
+
 /* ---------- DROPDOWN ---------- */
 select {
     padding: 10px 16px;
@@ -90,9 +94,24 @@ select:hover {
     border-color: #3b82f6;
 }
 
+/* ---------- RESULTS INFO ---------- */
+.results-info {
+    margin: 20px 0;
+    padding: 12px 16px;
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 4px solid #3b82f6;
+    border-radius: 8px;
+}
+
+.results-info p {
+    margin: 0;
+    color: #1e40af;
+    font-weight: 600;
+}
+
 /* ---------- DOWNLOAD AREA ---------- */
 .download {
-    margin: 30px 0;
+    margin: 20px 0;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -125,6 +144,7 @@ td {
     border-bottom: 1px solid rgba(0,0,0,0.06);
     font-size: 14px;
     line-height: 1.5;
+    vertical-align: top;
 }
 
 /* Row hover effect */
@@ -141,4 +161,96 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/* No data indicator */
+.no-data {
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* ---------- PAGINATION ---------- */
+.pagination {
+    margin: 30px 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    transition: 0.25s ease;
+}
+
+.page-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.page-info {
+    font-weight: 600;
+    color: #4f46e5;
+    padding: 8px 16px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+}
+
+/* ---------- QUICK NAVIGATION ---------- */
+.quick-nav {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.quick-nav label {
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.quick-nav input[type="number"] {
+    width: 80px;
+    padding: 8px 12px;
+}
+
+.quick-nav button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+    
+    .container {
+        padding: 30px 25px;
+    }
+    
+    input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 10px;
+    }
+    
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
