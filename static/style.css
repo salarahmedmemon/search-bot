@@ -20,6 +20,14 @@ body {
     animation: fadeIn 0.8s ease;
 }
 
+#searchForm, .download_parent {
+    width: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 20px;
+}
+
 /* Smooth Fade Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(12px); }

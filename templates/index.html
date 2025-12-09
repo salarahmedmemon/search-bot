@@ -19,17 +19,33 @@
                 <p>Found approximately {{ total_results }} results | Page {{ page }} of {{ total_pages }}</p>
             </div>
 
-            <div class="download">
-                <form method="POST" action="/download">
-                    <input type="hidden" name="query" value="{{ query }}">
-                    <input type="hidden" name="page" value="{{ page }}">
-                    <select name="format">
-                        <option value="csv">CSV</option>
-                        <option value="excel">Excel</option>
-                        <option value="pdf">PDF</option>
-                    </select>
-                    <button type="submit">Download Current Page</button>
-                </form>
+            <div class="download_parent">
+                <!-- Existing Download Current Page -->
+                <div class="download">
+                    <form method="POST" action="/download">
+                        <input type="hidden" name="query" value="{{ query }}">
+                        <input type="hidden" name="page" value="{{ page }}">
+                        <select name="format">
+                            <option value="csv">CSV</option>
+                            <option value="excel">Excel</option>
+                            <option value="pdf">PDF</option>
+                        </select>
+                        <button type="submit">Download Current Page</button>
+                    </form>
+                </div>
+
+                <!-- New Download All Pages -->
+                <div class="download">
+                    <form method="POST" action="/download_all">
+                        <input type="hidden" name="query" value="{{ query }}">
+                        <select name="format">
+                            <option value="csv">CSV</option>
+                            <option value="excel">Excel</option>
+                            <option value="pdf">PDF</option>
+                        </select>
+                        <button type="submit">Download All Pages</button>
+                    </form>
+                </div>
             </div>
 
             <table class="results-table">

@@ -399,5 +399,66 @@ def download():
     else:
         return "Invalid format", 400
 
+@app.route("/download_all", methods=["POST"])
+def download_all():
+    data_format = request.form.get("format")
+    query = request.form.get("query")
+    
+    # First, get total results to calculate pages
+    _, total_results = google_search(query, start=1, num=1)  # Quick call to get total
+    results_per_page = 10
+    max_results = min(total_results, 100)  # Google limit
+    total_pages = (max_results + results_per_page - 1) // results_per_page
+    
+    # Fetch all results across pages
+    all_results = []
+    for page in range(1, total_pages + 1):
+        start = (page - 1) * results_per_page + 1
+        results, _ = google_search(query, start=start, num=results_per_page)
+        all_results.extend(results)
+    
+    # Convert lists to strings for export
+    for result in all_results:
+        result['emails'] = ', '.join(result['emails'])
+        result['phones'] = ', '.join(result['phones'])
+        result['addresses'] = ', '.join(result['addresses'])
+    
+    df = pd.DataFrame(all_results)
+
+    if data_format == "csv":
+        buffer = io.StringIO()
+        df.to_csv(buffer, index=False)
+        buffer.seek(0)
+        return send_file(
+            io.BytesIO(buffer.getvalue().encode()),
+            mimetype="text/csv",
+            as_attachment=True,
+            download_name="all_search_results.csv"
+        )
+
+    elif data_format == "excel":
+        buffer = io.BytesIO()
+        df.to_excel(buffer, index=False, engine='openpyxl')
+        buffer.seek(0)
+        return send_file(
+            buffer,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            as_attachment=True,
+            download_name="all_search_results.xlsx"
+        )
+
+    elif data_format == "pdf":
+        # Render HTML template as PDF with all results
+        html = render_template("table_pdf.html", results=all_results)
+        pdf = pdfkit.from_string(html, False)
+        return send_file(
+            io.BytesIO(pdf),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name="all_search_results.pdf"
+        )
+    else:
+        return "Invalid format", 400
+
 if __name__ == "__main__":
     app.run(debug=True)
